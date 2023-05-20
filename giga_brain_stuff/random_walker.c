@@ -12,6 +12,8 @@ int matrix[MAX][MAX];
 int x, y;
 void print_matrix();
 int update();
+int new_update();
+
 int main()
 {
     int flag = FALSE;
@@ -25,13 +27,13 @@ int main()
     while (TRUE)
     {
         print_matrix();
-        flag = update();
+        flag = new_update();
         if (matrix == ref_matrix)
         {
             break;
         }
         system("cls");
-        Sleep(10);
+        // Sleep(0.001);
         memcpy(ref_matrix, matrix, sizeof ref_matrix);
     }
     return 0;
@@ -52,10 +54,10 @@ void print_matrix()
                 // printf("|");
                 if (i == x && j == y)
                 {
-                    printf("@");
+                    printf("@ ");
                 }
                 else
-                    printf("*");
+                    printf("* ");
             }
             else
             {
@@ -110,6 +112,15 @@ int update()
             y = y - 1;
         break;
     }
+    matrix[x][y] = 1;
+}
+
+int new_update()
+{
+    int vx = rand() % 2 + -1;
+    int vy = rand() % 2 + -1;
+    x = (x + vx + MAX) % MAX;
+    y = (y - vy + MAX) % MAX;
 
     matrix[x][y] = 1;
 }
